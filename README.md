@@ -6,6 +6,7 @@
 * With all the google privacy issues keep google out your normal web browser
 * Using qml web engine, google logins and trackers are separated from normal web browsing
 * NOTE: Google account password is saved encrypted in: ``` $HOME/.local/share/QtProject/Qml Runtime/QtWebEngine/gmail/ ```
+* Added a clear cache setting
 * Create app launcher w/
 ```
 qml6 --quiet --qwindowicon $HOME/G-Mail/icons/gmail.png $HOME/G-Mail/gmail.qml
