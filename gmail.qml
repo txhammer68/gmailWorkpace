@@ -40,7 +40,6 @@ ApplicationWindow {
                         height: 36
                         source: "./icons/gmail.png"
                         antialiasing:true
-                        smooth:true
                         enabled:true
                         opacity:viewInbox.visible  ||  mouseArea.containsMouse ? 1:.5
                         Text{
@@ -67,7 +66,6 @@ ApplicationWindow {
                         height: 36
                         source: "./icons/gcal.png"
                         antialiasing:true
-                        smooth:true
                         enabled:true
                         opacity:viewCal.visible ||  mouseAreaCal.containsMouse ? 1:.5
 
@@ -95,7 +93,6 @@ ApplicationWindow {
                         height: 36
                         source: "./icons/contacts.png"
                         antialiasing:true
-                        smooth:true
                         enabled:true
                         opacity:viewCont.visible ||  mouseAreaContacts.containsMouse ? 1:.5
 
@@ -123,7 +120,6 @@ ApplicationWindow {
                         height: 36
                         source: "./icons/chat.png"
                         antialiasing:true
-                        smooth:true
                         enabled:true
                         opacity:viewChat.visible ||  mouseAreaChat.containsMouse ? 1:.5
 
@@ -151,7 +147,6 @@ ApplicationWindow {
                         height: 36
                         source: "./icons/voice.png"
                         antialiasing:true
-                        smooth:true
                         enabled:true
                         opacity:viewVoice.visible ||  mouseAreaVoice.containsMouse ? 1:.5
 
@@ -179,7 +174,6 @@ ApplicationWindow {
                         height: 36
                         source: "./icons/maps.png"
                         antialiasing:true
-                        smooth:true
                         enabled:true
                         opacity:viewMaps.visible ||  mouseAreaMaps.containsMouse ? 1:.5
 
@@ -207,7 +201,6 @@ ApplicationWindow {
                         height: 36
                         source: "./icons/news.png"
                         antialiasing:true
-                        smooth:true
                         enabled:true
                         opacity:viewNews.visible ||  mouseAreaNews.containsMouse ? 1:.5
 
@@ -236,7 +229,6 @@ ApplicationWindow {
                         height: 36
                         source: "./icons/drive.png"
                         antialiasing:true
-                        smooth:true
                         enabled:true
                         opacity:viewDrive.visible ||  mouseAreaDrive.containsMouse ? 1:.5
 
@@ -265,7 +257,6 @@ ApplicationWindow {
                         height: 36
                         source: "./icons/search.png"
                         antialiasing:true
-                        smooth:true
                         enabled:true
                         opacity:viewDrive.visible ||  mouseAreaSearch.containsMouse ? 1:.5
 
