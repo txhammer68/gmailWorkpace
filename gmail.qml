@@ -276,6 +276,54 @@ ApplicationWindow {
                                 onClicked:selectedView="search"
                         }
                 }
+                Image {
+                        id:settings
+                        width: 36
+                        height: 36
+                        source: "./icons/settings.png"
+                        antialiasing:true
+                        smooth:true
+                        enabled:true
+                        opacity:mouseAreaSettings.containsMouse ? 1:.45
+
+                        MouseArea {
+                                id: mouseAreaSettings
+                                anchors.fill: parent
+                                cursorShape: Qt.PointingHandCursor
+                                hoverEnabled: true
+                                onClicked:settingsPopup.open()
+                        }
+                }
+        }
+
+Popup {
+                id: settingsPopup
+                x: settings.x+48
+                y: settings.y+5
+                width: 120
+                height: 48
+                padding: 10
+                modal: true
+                focus: true
+                closePolicy: Popup.CloseOnEscape | Popup.Popup.CloseOnPressOutside
+
+                contentItem:
+                        Text {
+                        text: "Clear Cache"
+                        color:"white"
+                        topPadding:5
+                        leftPadding:10
+
+                        MouseArea {
+                                id: mouseAreaPopup
+                                anchors.fill: parent
+                                cursorShape: Qt.PointingHandCursor
+                                hoverEnabled: true
+                                onEntered:parent.color="cyan"
+                                onExited:parent.color="white"
+                                onClicked:webProfile.clearHttpCache()
+                          }
+                }
         }
 
         WebEngineProfile {
@@ -453,7 +501,35 @@ ApplicationWindow {
                                 }
                         }
                         profile:webProfile
-                        settings {
+                        settings {Popup {
+                id: settingsPopup
+                x: settings.x+48
+                y: settings.y+5
+                width: 120
+                height: 48
+                padding: 10
+                modal: true
+                focus: true
+                closePolicy: Popup.CloseOnEscape | Popup.Popup.CloseOnPressOutside
+
+                contentItem:
+                        Text {
+                        text: "Clear Cache"
+                        color:"white"
+                        topPadding:5
+                        leftPadding:10
+
+                        MouseArea {
+                                id: mouseAreaPopup
+                                anchors.fill: parent
+                                cursorShape: Qt.PointingHandCursor
+                                hoverEnabled: true
+                                onEntered:parent.color="cyan"
+                                onExited:parent.color="white"
+                                onClicked:webProfile.clearHttpCache()
+                          }
+                }
+        }
                                 javascriptCanAccessClipboard: true
                                 forceDarkMode: darkMode
                                 playbackRequiresUserGesture: true
