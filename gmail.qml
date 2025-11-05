@@ -1,6 +1,5 @@
 import QtQuick
 import QtQuick.Controls
-import org.kde.plasma.core
 import QtWebEngine
 
 // txhammer 11/2025
