@@ -6,7 +6,8 @@
 * KDE Linux distro required as QT 6 is used to create the web views
 * With all the google privacy issues keep google out your normal web browser
 * Using qml web engine, google logins and trackers are separated from normal web browsing
-* NOTE: Google account password is saved encrypted in: ``` $HOME/.local/share/QtProject/Qml Runtime/QtWebEngine/gmail/ ```
+* NOTE: Google account info/password is saved encrypted in: ``` $HOME/.local/share/QtProject/Qml Runtime/QtWebEngine/gmail/ ```
+* Remove the directory to erase all google account info to start over
 
 #### Requirements
 * qt6-base package
