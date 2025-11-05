@@ -16,4 +16,4 @@ qml6 --quiet --qwindowicon $HOME/G-Mail/icons/gmail.png $HOME/G-Mail/gmail.qml
 
 
 <br>
-<small> All trademarks, trade names, or logos mentioned or used are the property of their respective owners. Every effort has been made to properly capitalize, punctuate, identify and attribute trademarks and trade names to their respective owners, including the use of ® and ™ wherever possible and practical. The “Workspace” name and associated logos and marks are trademarks and the property of Google Corporation. All other trademarks are the property of their respective owners.</small>
+ <sub><sup> All trademarks, trade names, or logos mentioned or used are the property of their respective owners. Every effort has been made to properly capitalize, punctuate, identify and attribute trademarks and trade names to their respective owners, including the use of ® and ™ wherever possible and practical. The “Workspace” name and associated logos and marks are trademarks and the property of Google Corporation. All other trademarks are the property of their respective owners.</sup></sub>
