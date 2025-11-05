@@ -311,7 +311,8 @@ ApplicationWindow {
                         focus:visible
                         visible:selectedView=="gmail"
                         antialiasing:true
-                        //zoomFactor:1.25
+                        zoomFactor:1.25
+                        url:"https://mail.google.com/mail/u/0/#inbox"
                         backgroundColor :"black"
                         settings {
                                 javascriptCanAccessClipboard: true
@@ -328,9 +329,6 @@ ApplicationWindow {
                         profile:webProfile
                         onFeaturePermissionRequested: {
                                 grantFeaturePermission(securityOrigin, feature, true) // allows access to system features
-                        }
-                        Component.onCompleted: {
-                                url="https://mail.google.com/mail/u/0/#inbox"
                         }
                         onLoadingChanged:{
                                 !viewInbox.loading  ? init.start():""  // start loading other webviews
@@ -382,9 +380,6 @@ ApplicationWindow {
                                 playbackRequiresUserGesture: true
                         }
                         profile:webProfile
-                        Component.onCompleted: {
-                                WebEngine.settings.ForceDarkMode = true
-                        }
                 }
 
                 WebEngineView {
@@ -407,10 +402,6 @@ ApplicationWindow {
                                 playbackRequiresUserGesture: true
                         }
                         profile:webProfile
-                        Component.onCompleted: {
-                                Qt.WebEngine.settings.ForceDarkMode = true
-                        }
-
                 }
 
                 WebEngineView {
@@ -455,9 +446,6 @@ ApplicationWindow {
                                 forceDarkMode: darkMode
                                 playbackRequiresUserGesture: true
                         }
-                        Component.onCompleted: {
-                                WebEngine.settings.ForceDarkMode = true
-                        }
                 }
 
                 WebEngineView {
@@ -479,9 +467,6 @@ ApplicationWindow {
                                 javascriptCanAccessClipboard: true
                                 forceDarkMode: darkMode
                                 playbackRequiresUserGesture: true
-                        }
-                        Component.onCompleted: {
-                                WebEngine.settings.ForceDarkMode = true // not working ??
                         }
                 }
 
