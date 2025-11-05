@@ -9,6 +9,7 @@
 * NOTE: Google account password is saved encrypted in: ``` $HOME/.local/share/QtProject/Qml Runtime/QtWebEngine/gmail/ ```
 
 #### Requirements
+* qt6-base package
 * qt6-declarative package for qml6 launcher of qml files
 * qt6-webengine package for webengine views
 
