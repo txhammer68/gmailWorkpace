@@ -1,5 +1,5 @@
 ### Google Workspaces Qt Web View App
-
+![KDE Plasma](https://shields.io)
 * Included apps - gmail,gcal,contacts,chat,voip,news,maps,drive,search
 * Vertical Tab Bar for each Google app
 * Login with google id/password and verify with 2FA on your phone
