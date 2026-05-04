@@ -11,7 +11,7 @@
 * With all the google privacy issues keep google out your normal web browser
 * Using qml web engine, google logins and trackers are separated from normal web browsing
 * NOTE: Google account info/password is saved encrypted in: <br>
-   ``` $HOME/.local/share/QtProject/Qml Runtime/QtWebEngine/gmail/ ```
+   ``` $HOME/.local/share/QtProject/Qml Runtime/QtWebEngine/gmailWorkpace/ ```
 * Remove the directory to erase all google account info to start over
 
 #### Requirements
@@ -20,10 +20,10 @@
 * qt6-webengine package for webengine views
 
 #### Install Notes
-* Create G-Mail folder in your $HOME folder, download repo to it
+* Create gmailWorkpace folder in your $HOME folder, download repo to it
 * Create app launcher w/
 ```
-qml6 --quiet --qwindowicon $HOME/G-Mail/icons/gmail.png $HOME/G-Mail/gmail.qml
+qml6 --quiet --qwindowicon $HOME/gmailWorkpace/icons/gmail.png $HOME/gmailWorkpace/gmail.qml
 ```
 
 <img alt="preview" src="preview.png" width="784">
