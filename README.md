@@ -1,33 +1,26 @@
-<p align="center">
+### Google Workspaces Qt Web View App
+
+<p align="left">
     <img src="https://img.shields.io/badge/KDE_Plasma-6.0+-blue?style=for-the-badge&logo=kde" alt="KDE Plasma 6">
-    <img src="https://img.shields.io/badge/license-GPL--3.0-green?style=for-the-badge" alt="License">
+    <img src="https://img.shields.io/badge/license-GPL--2.0-green?style=for-the-badge" alt="License">
 </p>
 
-### Google Workspaces Qt Web View App
-* Included apps - gmail,gcal,contacts,chat,voip,news,maps,drive,search
-* Vertical Tab Bar for each Google app
+* Included apps - G-Mail,G-Calendar,Contacts,Chat,Voice,News,Maps,Drive,Search
+
+* Requirements: KDE Plasma 6, qt6-webengine, qt6-webview
+
+* Download repo to: $HOME\G-Mail <br>
+ ``` bash git clone https://github.com/TxHammer68/gmailWorkpace /$HOME/G-Mail ```
+
+* Create app launcher w/ <br>
+ ``` bash qml6 --quiet --qwindowicon $HOME/G-Mail/icons/gmail.png $HOME/G-Mail/main.qml ```
+
 * Login with google id/password and verify with 2FA on your phone
-* KDE Linux distro required as QT 6 is used to create the web views
-* With all the google privacy issues keep google out your normal web browser
-* Using qml web engine, google logins and trackers are separated from normal web browsing
+ 
 * NOTE: Google account info/password is saved encrypted in: <br>
-   ``` $HOME/.local/share/QtProject/Qml Runtime/QtWebEngine/gmailWorkpace/ ```
-* Remove the directory to erase all google account info to start over
-
-#### Requirements
-* qt6-base package
-* qt6-declarative package for qml6 launcher of qml files
-* qt6-webengine package for webengine views
-
-#### Install Notes
-* Create gmailWorkpace folder in your $HOME folder, download repo to it
-* Create app launcher w/
-```
-qml6 --quiet --qwindowicon $HOME/gmailWorkpace/icons/gmail.png $HOME/gmailWorkpace/gmail.qml
-```
+``` $HOME/.local/share/StandaloneApps/GoogleWorkSpaces/QtWebEngine/gmail/ ```
 
 <img alt="preview" src="preview.png" width="784">
 
-
 <br>
- <sub><sup> All trademarks, trade names, or logos mentioned or used are the property of their respective owners. Every effort has been made to properly capitalize, punctuate, identify and attribute trademarks and trade names to their respective owners, including the use of ® and ™ wherever possible and practical. The “Workspace” name and associated logos and marks are trademarks and the property of Google Corporation. All other trademarks are the property of their respective owners.</sup></sub>
+<sub><sup> All trademarks, trade names, or logos mentioned or used are the property of their respective owners. Every effort has been made to properly capitalize, punctuate, identify and attribute trademarks and trade names to their respective owners, including the use of ® and ™ wherever possible and practical. The “Workspace” name and associated logos and marks are trademarks and the property of Google Corporation. All other trademarks are the property of their respective owners.</sup></sub>
