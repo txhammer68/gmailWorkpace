@@ -10,10 +10,14 @@
 * Requirements: KDE Plasma 6, qt6-webengine, qt6-webview
 
 * Download repo to: $HOME\G-Mail <br>
- ``` bash git clone https://github.com/TxHammer68/gmailWorkpace /$HOME/G-Mail ```
+ ``` bash
+git clone https://github.com/TxHammer68/gmailWorkpace /$HOME/G-Mail
+```
 
 * Create app launcher w/ <br>
- ``` bash qml6 --quiet --qwindowicon $HOME/G-Mail/icons/gmail.png $HOME/G-Mail/main.qml ```
+ ``` bash
+qml6 --quiet --qwindowicon $HOME/G-Mail/icons/gmail.png $HOME/G-Mail/main.qml
+```
 
 * Login with google id/password and verify with 2FA on your phone
  
