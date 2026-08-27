@@ -9,7 +9,7 @@
 
 * Requirements: KDE Plasma 6, qt6-webengine, qt6-webview
 
-* Download repo to: $HOME\G-Mail <br>
+* Download repo to: $HOME/G-Mail <br>
  ``` bash
 git clone https://github.com/TxHammer68/gmailWorkpace /$HOME/G-Mail
 ```
