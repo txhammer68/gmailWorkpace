@@ -3,6 +3,7 @@ import QtQuick.Controls
 import QtWebEngine
 import org.kde.kirigami as Kirigami
 import QtCore
+import QtQuick.Dialogs
 
 // txhammer 11/2025
 // kde plasma qt 6 qml app
@@ -22,6 +23,8 @@ ApplicationWindow {
 
     property bool darkMode: Application.styleHints.colorScheme === Qt.ColorScheme.Dark
     property string selectedView:"viewGmail"
+
+    property var currentDownloadRequest: null
 
     property var items: [
         { id: "gmail", icon: "gmail.png", label: "Inbox", view: "viewGmail",url:"https://mail.google.com/mail/u/0/#inbox"},
@@ -66,6 +69,39 @@ ApplicationWindow {
 
     property var zoomMap: ({})
 
+    FileDialog {
+        id: webDownloadDialog
+        title: "Save Browser Download As..."
+        fileMode: FileDialog.SaveFile
+
+        onAccepted: {
+            if (currentDownloadRequest) {
+                // 1. Convert the picked QUrl to a clean filesystem path string
+                let cleanPath = String(selectedFile).replace("file://", "");
+
+                // 2. Extract the directory path and the file name separately
+                let lastSlash = cleanPath.lastIndexOf("/");
+                let directory = cleanPath.substring(0, lastSlash);
+                let fileName = cleanPath.substring(lastSlash + 1);
+
+                // 3. Update the download object parameters
+                currentDownloadRequest.downloadDirectory = directory;
+                currentDownloadRequest.downloadFileName = fileName;
+
+                // 4. Fire the transfer
+                currentDownloadRequest.accept();
+                console.log("Download saved via native dialog to: " + cleanPath);
+            }
+        }
+
+        onRejected: {
+            if (currentDownloadRequest) {
+                currentDownloadRequest.cancel();
+                console.log("Download cancelled by user via native dialog");
+            }
+        }
+    }
+
     WebEngineProfile {
         id:webProfile
         offTheRecord : false
@@ -73,6 +109,16 @@ ApplicationWindow {
         persistentPermissionsPolicy:WebEngineProfile.StoreOnDisk
         persistentCookiesPolicy : WebEngineProfile.AllowPersistentCookies
         httpCacheType:WebEngineProfile.DiskHttpCache
+        onDownloadRequested: function(download) {
+            // Save the download reference to the persistent root property
+            currentDownloadRequest = download;
+
+            // Pre-fill the native dialog filename with the site's suggested name
+            webDownloadDialog.currentFile = String(StandardPaths.writableLocation(StandardPaths.DownloadLocation)) + "/" + download.suggestedFileName;
+
+            // Open the native window prompt immediately
+            webDownloadDialog.open();
+        }
     }
 
     Item {
