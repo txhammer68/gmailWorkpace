@@ -11,7 +11,7 @@ import QtQuick.Dialogs
 // load multiple webviews to create an Google Workspaces like app
 // included google apps [gmail,gcal,contacts,chat,voip,news,maps,drive,search]
 // keep google out your normal web browser
-// NOTE: Google account info/password is saved encrypted in: $HOME/.local/share/QtProject/Qml Runtime/QtWebEngine/gmail/
+// NOTE: Google account info/password is saved encrypted in: $HOME/.local/share/QtProject/QtQmlViewer/QtWebEngine/gmail/
 
 ApplicationWindow {
     id:root
@@ -128,8 +128,9 @@ ApplicationWindow {
         anchors.leftMargin:10
         height:root.height
         width:root.width-navbar.width-10
-        visible:selectedView == items[0].view
+        opacity:selectedView == items[0].view
         WebLoader {viewUrl:items[0].url;forceDark:false} // dark mode not needed with gmail inbox...
+        Behavior on opacity { NumberAnimation { duration: 300 } }
     }
 
     Item {
@@ -139,8 +140,9 @@ ApplicationWindow {
         anchors.leftMargin:10
         height:root.height
         width:root.width-navbar.width-10
-        visible:selectedView == items[1].view
+        opacity:selectedView == items[1].view
         WebLoader {viewUrl:items[1].url;forceDark:darkMode}
+        Behavior on opacity { NumberAnimation { duration: 300 } }
     }
 
     Item {
@@ -150,8 +152,9 @@ ApplicationWindow {
         anchors.leftMargin:10
         height:root.height
         width:root.width-navbar.width-10
-        visible:selectedView == items[2].view
+        opacity:selectedView == items[2].view
         WebLoader {viewUrl:items[2].url;forceDark:darkMode}
+        Behavior on opacity { NumberAnimation { duration: 300 } }
     }
 
     Item {
@@ -161,8 +164,9 @@ ApplicationWindow {
         anchors.leftMargin:10
         height:root.height
         width:root.width-navbar.width-10
-        visible:selectedView == items[3].view
+        opacity:selectedView == items[3].view
         WebLoader {viewUrl:items[3].url;forceDark:darkMode}
+        Behavior on opacity { NumberAnimation { duration: 300 } }
     }
 
     Item {
@@ -172,7 +176,7 @@ ApplicationWindow {
         anchors.leftMargin:10
         height:root.height
         width:root.width-navbar.width-10
-        visible:selectedView == items[4].view
+        opacity:selectedView == items[4].view
         WebLoader {viewUrl:items[4].url;forceDark:darkMode}
     }
 
@@ -183,8 +187,9 @@ ApplicationWindow {
         anchors.leftMargin:10
         height:root.height
         width:root.width-navbar.width-10
-        visible:selectedView == items[5].view
+        opacity:selectedView == items[5].view
         WebLoader {viewUrl:items[5].url;forceDark:darkMode}
+        Behavior on opacity { NumberAnimation { duration: 300 } }
     }
 
     Item {
@@ -194,8 +199,9 @@ ApplicationWindow {
         anchors.leftMargin:10
         height:root.height
         width:root.width-navbar.width-10
-        visible:selectedView == items[6].view
+        opacity:selectedView == items[6].view
         WebLoader {viewUrl:items[6].url;forceDark:darkMode}
+        Behavior on opacity { NumberAnimation { duration: 300 } }
     }
 
     Item {
@@ -205,8 +211,9 @@ ApplicationWindow {
         anchors.leftMargin:10
         height:root.height
         width:root.width-navbar.width-10
-        visible:selectedView == items[7].view
+        opacity:selectedView == items[7].view
         WebLoader {viewUrl:items[7].url;forceDark:darkMode}
+        Behavior on opacity { NumberAnimation { duration: 300 } }
     }
 
     Item {
@@ -216,8 +223,9 @@ ApplicationWindow {
         anchors.leftMargin:10
         height:root.height
         width:root.width-navbar.width-10
-        visible:selectedView == items[8].view
+        opacity:selectedView == items[8].view
         WebLoader {viewUrl:items[8].url;forceDark:darkMode}
+        Behavior on opacity { NumberAnimation { duration: 300 } }
     }
 
     Column {
@@ -239,7 +247,7 @@ ApplicationWindow {
                     width: 36
                     height: 36
                     source: "./icons/" + modelData.icon
-                    antialiasing: true
+                    smooth: true
                     opacity:selectedView == modelData.view  ||  mouseArea.containsMouse ? 1:.5
                     Text {
                         anchors.top:parent.bottom
@@ -269,7 +277,7 @@ ApplicationWindow {
             width: 36
             height: 36
             source: "./icons/settings.png"
-            antialiasing: true
+            smooth: true
             opacity:settingsMouseArea.containsMouse ? 1:.5
 
             MouseArea {
@@ -299,6 +307,7 @@ ApplicationWindow {
             color:Kirigami.Theme.textColor
             topPadding:5
             leftPadding:10
+            antialiasing: true
 
             MouseArea {
                 id: mouseAreaPopup
