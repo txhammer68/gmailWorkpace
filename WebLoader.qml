@@ -43,7 +43,7 @@ WebEngineView {
         javascriptCanAccessClipboard: true
         forceDarkMode: forceDark
             playbackRequiresUserGesture: true
-            pdfViewerEnabled: selectedView === "viewGmail" || selectedView === "viewDrive"
+            pdfViewerEnabled: selectedView === "viewGmail" || selectedView === "drive"
             scrollAnimatorEnabled: true
     }
 

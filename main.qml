@@ -44,45 +44,12 @@
             onActivated: root.close()
         }
 
-        Shortcut {
-            sequence: "Ctrl+1"
-            onActivated: selectedView=itemsModel.get(0).view
-        }
-        Shortcut {
-            sequence: "Ctrl+2"
-            onActivated: selectedView=itemsModel.get(1).view
-        }
-        Shortcut {
-            sequence: "Ctrl+3"
-            onActivated: selectedView=itemsModel.get(2).view
-        }
-        Shortcut {
-            sequence: "Ctrl+4"
-            onActivated: selectedView=itemsModel.get(3).view
-        }
-        Shortcut {
-            sequence: "Ctrl+5"
-            onActivated: selectedView=itemsModel.get(4).view
-        }
-        Shortcut {
-            sequence: "Ctrl+6"
-            onActivated: selectedView=itemsModel.get(5).view
-        }
-        Shortcut {
-            sequence: "Ctrl+7"
-            onActivated: selectedView=itemsModel.get(6).view
-        }
-        Shortcut {
-            sequence: "Ctrl+8"
-            onActivated: selectedView=itemsModel.get(7).view
-        }
-        Shortcut {
-            sequence: "Ctrl+9"
-            onActivated: selectedView=itemsModel.get(8).view
-        }
-        Shortcut {
-            sequence: "Ctrl+0"
-            onActivated: selectedView=itemsModel.get(9).view
+        Instantiator {
+            model: itemsModel
+            delegate: Shortcut {
+                sequence: "Ctrl+" + (index + 1)
+                onActivated: root.selectedView = model.view
+            }
         }
 
         Component.onCompleted: {
@@ -147,7 +114,8 @@
             persistentCookiesPolicy : WebEngineProfile.AllowPersistentCookies
             httpCacheType:WebEngineProfile.DiskHttpCache
             //httpUserAgent: "Mozilla/5.0 (wayland; Linux x86_64; rv:159.0) Gecko/20100101 Firefox/159.0"
-            httpUserAgent: "Mozilla/5.0 (Wayland; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/157.0.0.0 Safari/537.36"
+            httpUserAgent: "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/157.0.0.0 Safari/537.36"
+
 
 
             onDownloadRequested: function(download) {
@@ -185,12 +153,9 @@
                 visible: opacity > 0
                 z: opacity > 0 ? 1 : 0
 
-                property bool shouldLoad: index === 0 || itemsModel.get(index - 1).loaded || selectedView === model.view
-                onShouldLoadChanged: if (shouldLoad) started = true
-                property bool started: shouldLoad
-
                 WebLoader {
-                    viewUrl: viewDelegate.started ? model.url : ""
+                    id: webLoader
+                    viewUrl: ""
                     forceDark: index === 0 ? false : true
 
                         onLoadingChanged: {
@@ -202,6 +167,14 @@
                                 fallbackTimer.restart()
                             }
                         }
+                }
+
+                Binding {
+                    target: webLoader
+                    property: "viewUrl"
+                    value: model.url
+                    when: index === 0 || itemsModel.get(index - 1).loaded || selectedView === model.view
+                    restoreMode: Binding.RestoreNone
                 }
 
                 Behavior on opacity { NumberAnimation { duration: 300 } }
