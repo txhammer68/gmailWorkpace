@@ -7,25 +7,44 @@ WebEngineView {
     required property string viewUrl
     required property bool forceDark
 
-    function getHost(url) {
-        var urlObj = new URL(url);
-        return urlObj.hostname;
+    property bool restoringZoom: false
+
+    function getHost(targetUrl) {
+        let str = String(targetUrl || "")
+        if (str === "" || str === "about:blank") return ""
+            try {
+                return new URL(str).hostname
+            } catch (e) {
+                return ""
+            }
+    }
+
+    function applySavedZoom() {
+        let host = getHost(webView.url)
+        if (host === "") return
+
+            restoringZoom = true
+            if (root.zoomMap[host] !== undefined) {
+                webView.zoomFactor = root.zoomMap[host]
+            } else {
+                webView.zoomFactor = 1.0
+            }
+            restoringZoom = false
     }
 
     anchors.fill: parent
-    focus: visible
+    focus: true
     antialiasing: true
     backgroundColor: Kirigami.Theme.backgroundColor
     profile: webProfile
-    zoomFactor:root.zoomMap[host] !== undefined ? root.zoomMap[host]:1.0
-    url:viewUrl
+    url: viewUrl
 
     settings {
         javascriptCanAccessClipboard: true
         forceDarkMode: forceDark
-        playbackRequiresUserGesture: true
-        pdfViewerEnabled: selectedView === "viewGmail" || selectedView === "viewDrive"
-        scrollAnimatorEnabled: true
+            playbackRequiresUserGesture: true
+            pdfViewerEnabled: selectedView === "viewGmail" || selectedView === "viewDrive"
+            scrollAnimatorEnabled: true
     }
 
     onNewWindowRequested: function(request) {
@@ -39,25 +58,23 @@ WebEngineView {
         grantFeaturePermission(securityOrigin, feature, true)
     }
 
-    Component.onCompleted: {
-
-        var host = getHost(webView.url);
-
-        // If we have a saved zoom for this domain, apply it
-        if (root.zoomMap[host] !== undefined) {
-            webView.zoomFactor = root.zoomMap[host];
-        } else {
-            webView.zoomFactor = 1.0; // Default
+    // Re-apply saved zoom whenever the deferred viewUrl is assigned or finishes loading
+    onUrlChanged: applySavedZoom()
+    onLoadingChanged: function(loadRequest) {
+        if (loadRequest.status === WebEngineView.LoadSucceededStatus) {
+            applySavedZoom()
         }
     }
 
     onZoomFactorChanged: {
-        var host = getHost(webView.url);
-        if (host !== "") {
-            // Update shared dictionary dynamically when user zooms
-            var currentMap = root.zoomMap;
-            currentMap[host] = webView.zoomFactor;
-            root.zoomMap = currentMap; // Trigger QML binding updates
-        }
+        // Ignore zoom changes triggered by applySavedZoom() itself
+        if (restoringZoom) return
+
+            let host = getHost(webView.url)
+            if (host !== "") {
+                root.zoomMap[host] = webView.zoomFactor
+                appSettings.serializedZoomMap = JSON.stringify(root.zoomMap)
+                appSettings.sync()
+            }
     }
 }
