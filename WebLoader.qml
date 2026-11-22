@@ -47,11 +47,9 @@ WebEngineView {
             scrollAnimatorEnabled: true
     }
 
+    // Handles target="_blank" and window.open() (e.g. links in emails, Drive files)
     onNewWindowRequested: function(request) {
-        if (request.userInitiated) {
-            request.action = WebEngineView.IgnoreRequest
-            Qt.openUrlExternally(request.requestedUrl)
-        }
+        root.handleNewWindow(request)
     }
 
     onFeaturePermissionRequested: {

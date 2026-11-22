@@ -1,4 +1,5 @@
     import QtQuick
+    import QtQuick.Window
     import QtQuick.Controls
     import QtWebEngine
     import org.kde.kirigami as Kirigami
@@ -25,6 +26,7 @@
         property string selectedView:"viewGmail"
         property var currentDownloadRequest: null
         property int webIndex:0
+        property int openPopupCount: 0
 
         ListModel {
             id: itemsModel
@@ -44,7 +46,7 @@
             onActivated: root.close()
         }
 
-        Instantiator {
+        Instantiator { // shortcuts keys switch views gmail,gcal..search (1-9)
             model: itemsModel
             delegate: Shortcut {
                 sequence: "Ctrl+" + (index + 1)
@@ -106,6 +108,46 @@
             }
         }
 
+        function handleNewWindow(request) {
+            var newWin = newWindowComponent.createObject(root)
+            request.openIn(newWin.webView)
+        }
+
+        Component {
+            id: newWindowComponent
+
+            Window {
+                id: popupWindow
+                width: 1000
+                height: 750
+                visible: true
+                title: popupWebView.title || "Google Workspace"
+                flags: Qt.Window | Qt.FramelessWindowHint
+
+                Shortcut {
+                    sequence: "Esc"
+                    context: Qt.WindowShortcut // Ensures Esc only closes the currently focused popup
+                    onActivated: popupWindow.close()
+                }
+
+                property alias webView: popupWebView
+
+                Component.onCompleted: root.openPopupCount++
+
+                onClosing: {
+                    root.openPopupCount = Math.max(0, root.openPopupCount - 1)
+                    popupWindow.destroy()
+                }
+
+                WebLoader {
+                    id: popupWebView
+                    viewUrl: "" // request.openIn() populates the URL automatically
+                    forceDark: true
+                }
+            }
+        }
+
+
         WebEngineProfile {
             id:webProfile
             offTheRecord : false
@@ -115,9 +157,6 @@
             httpCacheType:WebEngineProfile.DiskHttpCache
             //httpUserAgent: "Mozilla/5.0 (wayland; Linux x86_64; rv:159.0) Gecko/20100101 Firefox/159.0"
             httpUserAgent: "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/157.0.0.0 Safari/537.36"
-
-
-
             onDownloadRequested: function(download) {
                 // Save the download reference to the persistent root property
                 currentDownloadRequest = download;
@@ -161,7 +200,7 @@
                         onLoadingChanged: {
                             if (!loading) {
                                 if (webIndex === index) fallbackTimer.stop()
-                                    itemsModel.setProperty(index, "loaded", true)
+                                itemsModel.setProperty(index, "loaded", true)
                             } else if (!model.loaded) {
                                 webIndex = index
                                 fallbackTimer.restart()
@@ -274,6 +313,19 @@
                         settingsPopup.close()
                     }
                 }
+            }
+        }
+
+        Rectangle {
+            id: dimOverlay
+            anchors.fill: parent
+            color: "#000000"
+            opacity: root.openPopupCount > 0 ? 0.75 : 0.0
+            visible: opacity > 0
+            z:  root.openPopupCount > 0 ? 99 : -1
+
+            Behavior on opacity {
+                NumberAnimation { duration: 200 }
             }
         }
     }
