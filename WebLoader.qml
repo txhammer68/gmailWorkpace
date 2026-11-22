@@ -47,9 +47,14 @@ WebEngineView {
             scrollAnimatorEnabled: true
     }
 
-    // Handles target="_blank" and window.open() (e.g. links in emails, Drive files)
     onNewWindowRequested: function(request) {
-        root.handleNewWindow(request)
+        if (request.destination === WebEngineNewWindowRequest.InNewBackgroundTab) {
+            // Middle-click: open in system external browser
+            Qt.openUrlExternally(request.requestedUrl)
+        } else {
+            // Normal target="_blank" or window.open(): open in internal popup
+            root.handleNewWindow(request)
+        }
     }
 
     onFeaturePermissionRequested: {
